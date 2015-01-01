@@ -3,6 +3,6 @@
 
 #include <stdio.h>
 
-size_t roundUpToPageSize(size_t size);
+extern size_t roundUpToPageSize(size_t size);
 
 #endif

@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -g -Wall -std=c11
+CFLAGS = -g -Wall
 
 HelloGitHub: md5.o allocator.o HelloGitHub.o
 	$(CC) $(CFLAGS) -o HelloGitHub libs/md5.o libs/allocator.o HelloGitHub.o
