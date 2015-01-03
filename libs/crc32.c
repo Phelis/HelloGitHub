@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-#define POLYNOMIAL 0xD8    /* 11011000 */
+#define POLYNOMIAL 0xD8    /* 11011000, GF contains five bits, the remainder right-shits four bits */
 
 // bit by bit
 uint8_t crc32native(uint8_t remainder)
@@ -30,7 +30,8 @@ uint8_t crc32native(uint8_t remainder)
  */
 #define WIDTH (8 * sizeof(uint8_t))    // from byte to bit
 #define TOPBIT (1<<(WIDTH-1))          // (WIDTH-1) is to know how many zeros should be filled with
-
+#define POLYNOMIAL_SLOW 0x58           // In original, the most significant bit is one, therefore, we should
+                                       // remove the GF most significant bit to be 0x58.
 uint8_t crc32Slow (uint8_t const message[], int nBytes)
 {
     uint8_t remainder = 0;
@@ -47,8 +48,8 @@ uint8_t crc32Slow (uint8_t const message[], int nBytes)
         for (uint8_t bit = 8; bit>0; bit--)
         {
             if (remainder & TOPBIT) {
-                remainder = (remainder << 1)^POLYNOMIAL;    // assume that The most significant bit of any
-                                                            // generator polynomial is always a one
+                remainder = (remainder << 1)^POLYNOMIAL_SLOW;    // assume that The most significant bit of any
+                                                                 // generator polynomial is always a one
             } else {
                 remainder = (remainder << 1);
             }
