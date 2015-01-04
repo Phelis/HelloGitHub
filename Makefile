@@ -1,17 +1,17 @@
-CC = gcc
-CFLAGS = -g -Wall
+CC := gcc
+CFLAGS := -g -Wall -Werror
+LOCAL_SRC_FILES := libs
 
-HelloGitHub: md5.o allocator.o HelloGitHub.o
-	$(CC) $(CFLAGS) -o HelloGitHub libs/md5.o libs/allocator.o HelloGitHub.o
+HelloGitHub: md5.o crc32.o allocator.o HelloGitHub.o
+	$(CC) $(CFLAGS) -o HelloGitHub libs/crc32.o libs/md5.o libs/allocator.o HelloGitHub.o
 
 HelloGitHub.o: HelloGitHub.c
 	$(CC) $(CFLAGS) -c HelloGitHub.c
 
-md5.o: libs/md5.h
-	$(CC) $(CFLAGS) -o libs/md5.o -c libs/md5.c
+# include makefiles
+include config.mk
+include libs/Makefile
 
-allocator.o: libs/allocator.h
-	$(CC) $(CFLAGS) -o libs/allocator.o -c libs/allocator.c
 all:
 	HelloGitHub
 
@@ -19,4 +19,4 @@ all:
 clean:
 	rm -f HelloGitHub
 	rm -f HelloGitHub.o
-	rm -f libs/md5.o
+	rm -f $(wildcard libs/*.o)
