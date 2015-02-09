@@ -71,6 +71,14 @@ JNIEXPORT jboolean JNICALL Java_HelloJava_testNativeBoolean
 JNIEXPORT jboolean JNICALL Java_HelloJava_testNativeBooleanWithDoubleBooleanArguments
   (JNIEnv *, jobject, jboolean, jboolean);
 
+/*
+ * Class:     HelloJava
+ * Method:    GCD
+ * Signature: (II)I
+ */
+JNIEXPORT jint JNICALL Java_HelloJava_GCD
+  (JNIEnv *, jobject, jint, jint);
+
 #ifdef __cplusplus
 }
 #endif

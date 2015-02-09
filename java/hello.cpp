@@ -33,7 +33,7 @@ JNIEXPORT jint JNICALL Java_HelloJava_testNativeInteger
  */
 JNIEXPORT jint JNICALL Java_HelloJava_testNativeIntegerWithDoubleIntArguments
 (JNIEnv * env, jobject obj, jint num1, jint num2) {
-    printf("testNativeIntegerWithDoubleIntArguments: num1 %d, num2 %d \n", num1, num2);
+    printf("testNativeIntegerWithDoubleIntArguments: num1= %d, num2= %d \n", num1, num2);
     jint total = 0;
     total = num1 + num2;
     return total;
@@ -102,3 +102,36 @@ JNIEXPORT jboolean JNICALL Java_HelloJava_testNativeBooleanWithDoubleBooleanArgu
     bool3 = bool1 | bool2;
     return bool3;
 }
+
+int executeEuclid(int a, int b) {
+    int result;
+    while (b > 0) {
+        result = a % b;
+        a = b;
+        b = result;
+    }
+    return a;
+
+}
+
+/*
+ * Class:     HelloJava
+ * Method:    GCD
+ * Signature: (II)I
+ */
+JNIEXPORT jint JNICALL Java_HelloJava_GCD
+(JNIEnv *env, jobject obj, jint num1, jint num2) {
+    __int32_t a = num1;
+    __int32_t b = num2;
+    __int32_t result = 0;
+    
+    if (a > b) {
+        result = executeEuclid(a ,b);
+    } else {
+        result = executeEuclid(b ,a);
+    }
+    
+    return result;
+}
+
+
